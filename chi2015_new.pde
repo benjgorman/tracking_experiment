@@ -17,6 +17,20 @@ float xposition;
 float yposition;
 int square;
 
+int mentalTally = 0;
+int physicalTally =0;
+int temporalTally = 0;
+int performanceTally = 0;
+int frustrationTally = 0;
+int effortTally = 0;
+
+final int MENTAL = 0;
+final int PHYSICAL = 1;
+final int TEMPORAL = 2;
+final int PERFORMANCE = 3;
+final int FRUSTRATION = 4;
+final int EFFORT = 5;
+
 int boxsize = 200;
 PFont f;
 int cols, rows;
@@ -26,7 +40,7 @@ int cols, rows;
 
 int value = 0;
 int currentScreen = 2;
-int comparisonNo = -1;
+int comparisonNo = 0;
 String currDirection;
 
 float rect_x = displayWidth/2 - size;
@@ -360,14 +374,23 @@ public void topBtn(int theValue)
   if (frameCount > 1)
   {
     comparisonNo++;
+    
+    if (top.getValue() == FRUSTRATION);
+    {
+      frustrationTally++;
+    }
+    
+    //switch here based on value
   }
 }
 
 public void bottomBtn(int theValue) 
 {
-  if (frameCount > 1)
+  if (frameCount > 1 )
   {
     comparisonNo++;
+    
+    //switch here based on value
   }
 }
 
@@ -488,8 +511,10 @@ void comparisonState()
     case 0:
       top.captionLabel().setText("Frustration");
       top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      top.changeValue(FRUSTRATION);
       bottom.captionLabel().setText("Effort");
       bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      bottom.changeValue(EFFORT);
       break;
     case 1: 
       top.captionLabel().setText("Performance");
