@@ -504,6 +504,12 @@ void comparisonState()
   
   text(s, 150 , 30);
   
+  String frustrationTallyCount = "Frustration: " + frustrationTally;
+  
+  text(frustrationTallyCount, 150 , 100);
+  
+  
+  
   //controlP5.controller("button2").setVisible(false);  
   
   switch(comparisonNo)
@@ -519,50 +525,66 @@ void comparisonState()
     case 1: 
       top.captionLabel().setText("Performance");
       top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      top.changeValue(PERFORMANCE);
       bottom.captionLabel().setText("Mental Demand");
       bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      bottom.changeValue(MENTAL);
       break;
     case 2: 
       top.captionLabel().setText("Performance");
       top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      top.changeValue(PERFORMANCE);
       bottom.captionLabel().setText("Temporal Demand");
       bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      bottom.changeValue(TEMPORAL);
       break;
     case 3: 
       top.captionLabel().setText("Mental Demand");
       top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      top.changeValue(MENTAL);
       bottom.captionLabel().setText("Effort");
       bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      bottom.changeValue(EFFORT);
       break;
     case 4: 
      top.captionLabel().setText("Mental Demand");
       top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      top.changeValue(MENTAL);
       bottom.captionLabel().setText("Physical Demand");
       bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      bottom.changeValue(PHYSICAL);
       break;
     case 5: 
       top.captionLabel().setText("Effort");
       top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      top.changeValue(EFFORT);
       bottom.captionLabel().setText("Physical Demand");
       bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      bottom.changeValue(PHYSICAL);
       break;
     case 6: 
       top.captionLabel().setText("Frustration");
       top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      top.changeValue(FRUSTRATION);
       bottom.captionLabel().setText("Mental Demand");
       bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      bottom.changeValue(MENTAL);
       break;
     case 7: 
       top.captionLabel().setText("Effort");
       top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      top.changeValue(EFFORT);
       bottom.captionLabel().setText("Performance");
       bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      bottom.changeValue(PERFORMANCE);
       break;
     case 8: 
       top.captionLabel().setText("Temporal Demand");
       top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      top.changeValue(TEMPORAL);
       bottom.captionLabel().setText("Frustration");
       bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      bottom.changeValue(FRUSTRATION);
       break;
     case 9:
       top.captionLabel().setText("Temporal Demand");
