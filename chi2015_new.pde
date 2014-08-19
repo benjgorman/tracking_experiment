@@ -5,9 +5,9 @@ import controlP5.*;
 ControlP5 cp5, comparisonPanel;
 
 RadioButton r1, r2, r3, r4, r5, r6;
-Button continueBtn, newBtn;
+Button continueBtn;
 
-Button temporal, effort, performance, mental, physical, frustration;
+Button top, bottom;
 
 Serial myPort;  // Create object from Serial class
 String val;     // Data received from the serial port
@@ -67,119 +67,33 @@ void setup()
      .align(CENTER, CENTER)
      ;
      
-  newBtn = comparisonPanel.addButton("continueBtn")
-     .setValue(0)
-     .setPosition(850,665)
-     .setSize(200,50)
-     ;
-     
-     continueBtn.captionLabel()
-     .setFont(font)
-     .setSize(20)
-     .toUpperCase(false)
-     .setText("Continue")
-     .align(CENTER, CENTER)
-     ;
-     
-   effort = comparisonPanel.addButton("effortBtn")
+   top = comparisonPanel.addButton("topBtn")
      .setValue(0)
      .setPosition(displayWidth/2-100,displayHeight/2-25)
      .setSize(200,50)
      ;
      
-     effort.captionLabel()
+     top.captionLabel()
      .setFont(font)
      .setSize(20)
      .toUpperCase(false)
-     .setText("Effort")
+     .setText("Top")
      .align(CENTER, CENTER)
      ;
      
-  temporal = comparisonPanel.addButton("temporalBtn")
+  bottom = comparisonPanel.addButton("bottomBtn")
      .setValue(0)
      .setPosition(displayWidth/2-100,displayHeight/2-25)
      .setSize(200,50)
      ;
      
-     temporal.captionLabel()
+     bottom.captionLabel()
      .setFont(font)
      .setSize(20)
      .toUpperCase(false)
-     .setText("Temporal")
+     .setText("Bottom")
      .align(CENTER, CENTER)
      ;
-     
-  performance = comparisonPanel.addButton("performanceBtn")
-     .setValue(0)
-     .setPosition(displayWidth/2-100,displayHeight/2-25)
-     .setSize(200,50)
-     ;
-     
-     performance.captionLabel()
-     .setFont(font)
-     .setSize(20)
-     .toUpperCase(false)
-     .setText("Performance")
-     .align(CENTER, CENTER)
-     ;
-     
-  frustration = comparisonPanel.addButton("frustrationBtn")
-     .setValue(0)
-     .setPosition(displayWidth/2-100,displayHeight/2-25)
-     .setSize(200,50)
-     ;
-     
-     frustration.captionLabel()
-     .setFont(font)
-     .setSize(20)
-     .toUpperCase(false)
-     .setText("Frustration")
-     .align(CENTER, CENTER)
-     ;
-     
-   effort = comparisonPanel.addButton("effortBtn")
-     .setValue(0)
-     .setPosition(displayWidth/2-100,displayHeight/2-25)
-     .setSize(200,50)
-     ;
-     
-     effort.captionLabel()
-     .setFont(font)
-     .setSize(20)
-     .toUpperCase(false)
-     .setText("Effort")
-     .align(CENTER, CENTER)
-     ; 
-     
-   mental = comparisonPanel.addButton("mentalBtn")
-     .setValue(0)
-     .setPosition(displayWidth/2-100,displayHeight/2-25)
-     .setSize(200,50)
-     ;
-     
-     mental.captionLabel()
-     .setFont(font)
-     .setSize(20)
-     .toUpperCase(false)
-     .setText("Mental")
-     .align(CENTER, CENTER)
-     ; 
-     
-   physical = comparisonPanel.addButton("physicalBtn")
-     .setValue(0)
-     .setPosition(displayWidth/2-100,displayHeight/2-25)
-     .setSize(200,50)
-     ;
-     
-     physical.captionLabel()
-     .setFont(font)
-     .setSize(20)
-     .toUpperCase(false)
-     .setText("Physical")
-     .align(CENTER, CENTER)
-     ;
-     
-     
   
   r1 = cp5.addRadioButton("radioButton")
          .setPosition(60,180)
@@ -441,7 +355,7 @@ public void continueBtn(int theValue)
 }
 
 
-public void temporalBtn(int theValue) 
+public void topBtn(int theValue) 
 {
   if (frameCount > 1)
   {
@@ -449,7 +363,7 @@ public void temporalBtn(int theValue)
   }
 }
 
-public void mentalBtn(int theValue) 
+public void bottomBtn(int theValue) 
 {
   if (frameCount > 1)
   {
@@ -457,37 +371,6 @@ public void mentalBtn(int theValue)
   }
 }
 
-public void physicalBtn(int theValue) 
-{
-  if (frameCount > 1)
-  {
-    comparisonNo++;
-  }
-}
-
-public void effortBtn(int theValue) 
-{
-  if (frameCount > 1)
-  {
-    comparisonNo++;
-  }
-}
-
-public void frustrationBtn(int theValue) 
-{
-  if (frameCount > 1)
-  {
-    comparisonNo++;
-  }
-}
-
-public void performanceBtn(int theValue) 
-{
-  if (frameCount > 1)
-  {
-    comparisonNo++;
-  }
-}
 
 boolean sketchFullScreen()
 {
@@ -594,20 +477,6 @@ void comparisonState()
   cp5.hide();
   comparisonPanel.show();
   
-  if (comparisonNo == -1)
-  {
-    //hideall
-    
-    temporal.setVisible(false);
-    performance.setVisible(false);
-    mental.setVisible(false);
-    physical.setVisible(false);
-    effort.setVisible(false);
-    frustration.setVisible(false);
-    
-    comparisonNo++;
-  }
-  
   String s = "Comparison number: " + comparisonNo + "/15";
   
   text(s, 150 , 30);
@@ -617,142 +486,100 @@ void comparisonState()
   switch(comparisonNo)
   {
     case 0:
-      temporal.setVisible(false);
-      physical.setVisible(false);
-      mental.setVisible(false);
-      performance.setVisible(false);
-      
-      frustration.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      effort.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      top.captionLabel().setText("Frustration");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Effort");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
     case 1: 
-      temporal.setVisible(false);
-      physical.setVisible(false);
-      frustration.setVisible(false);
-      effort.setVisible(false);
-      
-      performance.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      mental.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      top.captionLabel().setText("Performance");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Mental Demand");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
     case 2: 
-      physical.setVisible(false);
-      effort.setVisible(false);
-      frustration.setVisible(false);
-      mental.setVisible(false);
-      
-      performance.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      temporal.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      top.captionLabel().setText("Performance");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Temporal Demand");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
     case 3: 
-      temporal.setVisible(false);
-      performance.setVisible(false);
-
-      physical.setVisible(false);
-   
-      frustration.setVisible(false);
-      
-      mental.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      effort.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      top.captionLabel().setText("Mental Demand");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Effort");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
     case 4: 
-      temporal.setVisible(false);
-      performance.setVisible(false);
-      effort.setVisible(false);
-      frustration.setVisible(false);
-      
-      mental.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      physical.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+     top.captionLabel().setText("Mental Demand");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Physical Demand");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
     case 5: 
-      temporal.setVisible(false);
-      performance.setVisible(false);
-      mental.setVisible(false);
-      frustration.setVisible(false);
-      
-      effort.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      physical.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      top.captionLabel().setText("Effort");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Physical Demand");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
     case 6: 
-      temporal.setVisible(false);
-      performance.setVisible(false);
-      
-      physical.setVisible(false);
-      effort.setVisible(false);
-     
-      
-      frustration.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      mental.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      top.captionLabel().setText("Frustration");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Mental Demand");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
     case 7: 
-      temporal.hide();
-      
-      mental.hide();
-      physical.hide();
-      
-      frustration.hide();
-      
-      effort.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      performance.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      top.captionLabel().setText("Effort");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Performance");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
     case 8: 
-      temporal.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      frustration.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      top.captionLabel().setText("Temporal Demand");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Frustration");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
-    case 9: 
-      temporal.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      effort.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+    case 9:
+      top.captionLabel().setText("Temporal Demand");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Effort");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
-    case 10: 
-      physical.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      frustration.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+    case 10:
+      top.captionLabel().setText("Physical Demand");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Frustration");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
     case 11:
-      performance.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      frustration.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      top.captionLabel().setText("Performance");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Frustration");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
     case 12: 
-      physical.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      temporal.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+      top.captionLabel().setText("Physical Demand");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Temporal Demand");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
-    case 13: 
-       physical.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      performance.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+    case 13:
+      top.captionLabel().setText("Physical Demand");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Performance");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
-    case 14: 
-      temporal.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      mental.setVisible(true)
-      .setPosition(displayWidth/2-100,displayHeight/2-25+200);
+    case 14:
+      top.captionLabel().setText("Temporal Demand");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("Mental Demand");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
       break;
-    case 15: 
+    case 15:
+      top.captionLabel().setText("15");
+      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
+      bottom.captionLabel().setText("15");
+      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200); 
       break;
     default: 
       break;
