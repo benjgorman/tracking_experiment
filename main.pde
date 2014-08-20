@@ -17,19 +17,7 @@ float xposition;
 float yposition;
 int square;
 
-int mentalTally = 0;
-int physicalTally =0;
-int temporalTally = 0;
-int performanceTally = 0;
-int frustrationTally = 0;
-int effortTally = 0;
-
-final int MENTAL = 0;
-final int PHYSICAL = 1;
-final int TEMPORAL = 2;
-final int PERFORMANCE = 3;
-final int FRUSTRATION = 4;
-final int EFFORT = 5;
+int trial = 0;
 
 int boxsize = 200;
 PFont f;
@@ -56,12 +44,6 @@ void setup()
   //noStroke();
   cp5 = new ControlP5(this);
   comparisonPanel = new ControlP5(this);
-  
- // cp5.setColorForeground(0);
-  //cp5.setColorBackground(0);
-  //cp5.setColorLabel(0);
-  //cp5.setColorValue(255);
-  //cp5.setColorActive(255);
   
   PFont pfont = createFont("Arial",20,true); // use true/false for smooth/no-smooth
   ControlFont font = new ControlFont(pfont,241);
@@ -375,12 +357,27 @@ public void topBtn(int theValue)
   {
     comparisonNo++;
     
-    if (top.getValue() == FRUSTRATION);
+    switch(theValue)
     {
-      frustrationTally++;
+      case FRUSTRATION:
+        frustrationTally++;
+      break;
+      case MENTAL:
+        mentalTally++;
+      break;
+      case PHYSICAL:
+        physicalTally++;
+      break;
+      case TEMPORAL:
+        temporalTally++;
+      break;
+      case PERFORMANCE:
+        performanceTally++;
+      break;
+      case EFFORT:
+        effortTally++;
+      break;
     }
-    
-    //switch here based on value
   }
 }
 
@@ -390,93 +387,35 @@ public void bottomBtn(int theValue)
   {
     comparisonNo++;
     
-    //switch here based on value
+    switch(theValue)
+    {
+      case FRUSTRATION:
+        frustrationTally++;
+      break;
+      case MENTAL:
+        mentalTally++;
+      break;
+      case PHYSICAL:
+        physicalTally++;
+      break;
+      case TEMPORAL:
+        temporalTally++;
+      break;
+      case PERFORMANCE:
+        performanceTally++;
+      break;
+      case EFFORT:
+        effortTally++;
+      break;
+    }
   }
 }
 
 
 boolean sketchFullScreen()
 {
-  return true;
-  //return false;
-}
-
-int trial = 0;
-
-void experimentalState()
-{
-  cp5.hide();
-  comparisonPanel.hide();
-  for (int i = 0; i < cols; i++) {
-    for (int j = 0; j < rows; j++) {
-      int x = i*boxsize;
-      int y = j*boxsize;
-      fill(255);
-      stroke(0);
-      rect(x, y, boxsize, boxsize);
-     
-      fill(100, 150, 200);
-      text(str(j * cols + i + 1), x + boxsize / 2, y + boxsize / 2);
-    }
-  }
-
-  if (keyPressed) 
-  {
-    if (key == ';' && trial<23) {
-      trial++;
-    }
-  }
-  
-  Square tempSquare = trials.get(trial);
-   
-  rect(tempSquare.xposition, tempSquare.yposition, rect_w, rect_h);
-  
-  text("Square:" + trial, 400, 25);
-  
-  text("X:" + mouseX, 20, 25);
-  
-  text("Y:" + mouseY, 100, 25);
-  
-  xposition = tempSquare.xposition;
-  yposition = tempSquare.yposition;
-//test
-  
-  if ((mouseX > xposition) && (mouseX < xposition + rect_w))
-  {
-      text("X ON TARGET", 160, 25);
-      myPort.write('4');  //when cursor is within target
-  }
-  else if (mouseX > xposition + rect_w) //When cursor is on right of target
-  {
-    myPort.write('2');
-  }
-  else if (mouseX < xposition) //When cursor is on the left of target
-  {
-    myPort.write('1');
-  }
-  else
-  {
-    text("X NO TARGET", 160, 25);
-    myPort.write('3');
-  }
-  if ((mouseY > yposition) && (mouseY < yposition + rect_h))
-  {
-      text("Y ON TARGET", 160, 65);
-      myPort.write('5');  //when cursor is within target
-  }
-  else if (mouseY > yposition + rect_h) //When cursor is on right of target
-  {
-    myPort.write('6');
-  }
-  else if (mouseY < yposition) //When cursor is on the left of target
-  {
-    myPort.write('7');
-  }
-  else
-  {
-    text("Y NO TARGET", 160, 65);
-    myPort.write('0');
-  }
+  //return true;
+  return false;
 }
 
 void initialState()
@@ -494,221 +433,6 @@ void initialState()
   text("please 'click' to begin", displayWidth/2 ,displayHeight/2);
 }
 
-void comparisonState()
-{
-  background(155);
-  cp5.hide();
-  comparisonPanel.show();
-  
-  String s = "Comparison number: " + comparisonNo + "/15";
-  
-  text(s, 150 , 30);
-  
-  String frustrationTallyCount = "Frustration: " + frustrationTally;
-  
-  text(frustrationTallyCount, 150 , 100);
-  
-  
-  
-  //controlP5.controller("button2").setVisible(false);  
-  
-  switch(comparisonNo)
-  {
-    case 0:
-      top.captionLabel().setText("Frustration");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      top.changeValue(FRUSTRATION);
-      bottom.captionLabel().setText("Effort");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      bottom.changeValue(EFFORT);
-      break;
-    case 1: 
-      top.captionLabel().setText("Performance");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      top.changeValue(PERFORMANCE);
-      bottom.captionLabel().setText("Mental Demand");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      bottom.changeValue(MENTAL);
-      break;
-    case 2: 
-      top.captionLabel().setText("Performance");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      top.changeValue(PERFORMANCE);
-      bottom.captionLabel().setText("Temporal Demand");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      bottom.changeValue(TEMPORAL);
-      break;
-    case 3: 
-      top.captionLabel().setText("Mental Demand");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      top.changeValue(MENTAL);
-      bottom.captionLabel().setText("Effort");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      bottom.changeValue(EFFORT);
-      break;
-    case 4: 
-     top.captionLabel().setText("Mental Demand");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      top.changeValue(MENTAL);
-      bottom.captionLabel().setText("Physical Demand");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      bottom.changeValue(PHYSICAL);
-      break;
-    case 5: 
-      top.captionLabel().setText("Effort");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      top.changeValue(EFFORT);
-      bottom.captionLabel().setText("Physical Demand");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      bottom.changeValue(PHYSICAL);
-      break;
-    case 6: 
-      top.captionLabel().setText("Frustration");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      top.changeValue(FRUSTRATION);
-      bottom.captionLabel().setText("Mental Demand");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      bottom.changeValue(MENTAL);
-      break;
-    case 7: 
-      top.captionLabel().setText("Effort");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      top.changeValue(EFFORT);
-      bottom.captionLabel().setText("Performance");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      bottom.changeValue(PERFORMANCE);
-      break;
-    case 8: 
-      top.captionLabel().setText("Temporal Demand");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      top.changeValue(TEMPORAL);
-      bottom.captionLabel().setText("Frustration");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      bottom.changeValue(FRUSTRATION);
-      break;
-    case 9:
-      top.captionLabel().setText("Temporal Demand");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      bottom.captionLabel().setText("Effort");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      break;
-    case 10:
-      top.captionLabel().setText("Physical Demand");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      bottom.captionLabel().setText("Frustration");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      break;
-    case 11:
-      top.captionLabel().setText("Performance");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      bottom.captionLabel().setText("Frustration");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      break;
-    case 12: 
-      top.captionLabel().setText("Physical Demand");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      bottom.captionLabel().setText("Temporal Demand");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      break;
-    case 13:
-      top.captionLabel().setText("Physical Demand");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      bottom.captionLabel().setText("Performance");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      break;
-    case 14:
-      top.captionLabel().setText("Temporal Demand");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      bottom.captionLabel().setText("Mental Demand");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200);
-      break;
-    case 15:
-      top.captionLabel().setText("15");
-      top.setPosition(displayWidth/2-100,displayHeight/2-25-200);
-      bottom.captionLabel().setText("15");
-      bottom.setPosition(displayWidth/2-100,displayHeight/2-25+200); 
-      break;
-    default: 
-      break;
-  }
-}
-
-void tlxState()
-{
-  background(155);
-  comparisonPanel.hide();
-
-  f = createFont("Helvetica", 48); 
-
-  textFont(f, 40);
-  textAlign(CENTER);
-  text("Click Done or continue to adjust weightings", displayWidth/2 ,80);
-  
-  textFont(f, 20);
-  text("Mental Demand", 325,158);
-  
-  fill(0);
-  rect(59, 179, 520, 36);
-  rect(319, 170, 0.6, 35);
-  rect(59, 170, 0.6, 35);
-  rect(579, 170, 0.6, 35);
-  
-  rect(59, 279, 520, 36);
-  rect(319, 270, 0.6, 35);
-  rect(59, 270, 0.6, 35);
-  rect(579, 270, 0.6, 35);
-  
-  rect(59, 379, 520, 36);
-  rect(319, 370, 0.6, 35);
-  rect(59, 370, 0.6, 35);
-  rect(579, 370, 0.6, 35);
-  
-  rect(59, 479, 520, 36);
-  rect(319, 470, 0.6, 35);
-  rect(59, 470, 0.6, 35);
-  rect(579, 470, 0.6, 35);
-  
-  rect(59, 579, 520, 36);
-  rect(319, 570, 0.6, 35);
-  rect(59, 570, 0.6, 35);
-  rect(579, 570, 0.6, 35);
-  
-  rect(59, 679, 520, 36);
-  rect(319, 670, 0.6, 35);
-  rect(59, 670, 0.6, 35);
-  rect(579, 670, 0.6, 35);
-  
-  text("Low", 80,236);
-  text("High", 560,236);
-  
-  text("Physical Demand", 325,258);
-  
-  text("Low", 80,336);
-  text("High", 560,336);
-  
-  text("Temporal Demand", 300,360);
-  
-  text("Low", 80,436);
-  text("High", 560,436);
- 
-  text("Performance", 300,460);
-  
-  text("Good", 80,536);
-  text("Poor", 560,536);
-  
-  text("Effort", 300,560);
-  
-  text("Low", 80,636);
-  text("High", 560,636);
-  
-  text("Frustration", 300,660);
-  
-  text("Low", 80,736);
-  text("High", 560,736);
-  
-
-}
-
 void draw()
 {
   switch(currentScreen)
@@ -719,30 +443,6 @@ void draw()
   case 3: comparisonState(); break;
   default: background(0); break;
   }
-}
-
-
-
-
-void mouseMoved() 
-{
-  value = value + 5;
-  if (value > 255) {
-    value = 0;
-  }
-}
-
-class Square 
-{ 
-  int xposition, yposition, id, answer, number;
-  Square (int x, int y, int ans, int num) 
-  {  
-    xposition = x;
-    yposition = y;
-    answer = ans;
-    num = number;
-    
-  } 
 }
 
 
