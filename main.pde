@@ -27,7 +27,7 @@ int cols, rows;
 // to change its value
 
 int value = 0;
-int currentScreen = 2;
+int currentScreen =2;
 int comparisonNo = 0;
 String currDirection;
 
@@ -91,7 +91,7 @@ void setup()
      .align(CENTER, CENTER)
      ;
   
-  r1 = cp5.addRadioButton("radioButton")
+  r1 = cp5.addRadioButton("mentalScale")
          .setPosition(60,180)
          .setSize(25,35)
          .setColorForeground(color(0))
@@ -123,7 +123,7 @@ void setup()
          .hideLabels()
          ;
          
-  r2 = cp5.addRadioButton("radioButton2")
+  r2 = cp5.addRadioButton("physicalScale")
          .setPosition(60,280)
          .setSize(25,35)
          .setColorForeground(color(0))
@@ -155,7 +155,7 @@ void setup()
          .hideLabels()
          ;
          
-  r3 = cp5.addRadioButton("radioButton3")
+  r3 = cp5.addRadioButton("temporalScale")
          .setPosition(60,380)
          .setSize(25,35)
          .setColorForeground(color(0))
@@ -187,7 +187,7 @@ void setup()
          .hideLabels()
          ;
          
-  r4 = cp5.addRadioButton("radioButton4")
+  r4 = cp5.addRadioButton("performanceScale")
          .setPosition(60,480)
          .setSize(25,35)
          .setColorForeground(color(0))
@@ -219,7 +219,7 @@ void setup()
          .hideLabels()
          ;
 
-  r5 = cp5.addRadioButton("radioButton5")
+  r5 = cp5.addRadioButton("effortScale")
          .setPosition(60,580)
          .setSize(25,35)
          .setColorForeground(color(0))
@@ -252,7 +252,7 @@ void setup()
          ;
          
          
-  r6 = cp5.addRadioButton("radioButton6")
+  r6 = cp5.addRadioButton("frustrationScale")
          .setPosition(60,680)
          .setSize(25,35)
          .setColorForeground(color(0))
@@ -335,9 +335,15 @@ void setup()
   //.println(portName);
 }
 
-public void controlEvent(ControlEvent theEvent) 
-{
-  println(theEvent.getController().getName());
+void controlEvent(ControlEvent theEvent) {
+  if(theEvent.isFrom(r1)) {
+    print("got an event from "+theEvent.getName()+"\t");
+    for(int i=0;i<theEvent.getGroup().getArrayValue().length;i++) {
+      print(int(theEvent.getGroup().getArrayValue()[i]));
+    }
+    println("\t "+theEvent.getValue());
+   // myColorBackground = color(int(theEvent.group().value()*50),0,0);
+  }
 }
 
 // function colorA will receive changes from 
@@ -411,6 +417,42 @@ public void bottomBtn(int theValue)
   }
 }
 
+void mentalScale(int a) 
+{
+  mentalRating = a * 5;
+  println("Mental: " +mentalRating);
+}
+
+void physicalScale(int a) 
+{
+  physicalRating = a * 5;
+   println("Physical: " +physicalRating);
+}
+
+void temporalScale(int a) 
+{
+  temporalRating = a * 5;
+   println("Temporal: " +temporalRating);
+}
+
+void performanceScale(int a) 
+{
+  performanceRating = a * 5;
+  println("Performance: " +performanceRating);
+}
+
+void effortScale(int a) 
+{
+  effortRating = a * 5;
+  println("Effort: " +effortRating);
+}
+
+void frustrationScale(int a) 
+{
+  frustrationRating = a * 5;
+  println("Frustration: " +frustrationRating);
+}
+
 
 boolean sketchFullScreen()
 {
@@ -441,6 +483,7 @@ void draw()
   case 1: experimentalState(); break;
   case 2: tlxState(); break;
   case 3: comparisonState(); break;
+  case 4: resultsState(); break;
   default: background(0); break;
   }
 }

@@ -1,3 +1,10 @@
+int mentalRating = 0;
+int physicalRating = 0;
+int temporalRating = 0;
+int performanceRating = 0;
+int effortRating = 0;
+int frustrationRating = 0;
+
 void tlxState()
 {
   background(155);
