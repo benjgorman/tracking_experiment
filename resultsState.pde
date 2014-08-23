@@ -58,9 +58,5 @@ void resultsState()
   text(frustrationWeight, displayWidth/2+250,375);
   
   text("Overall", displayWidth/2-300 ,575);
-  
 
- 
-  
-  
 }

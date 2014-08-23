@@ -2,12 +2,12 @@ import processing.serial.*;
 import java.util.*;
 import controlP5.*;
 
-ControlP5 cp5, comparisonPanel;
+ControlP5 cp5, comparisonPanel, setupPanel;
 
 RadioButton r1, r2, r3, r4, r5, r6;
 Button continueBtn;
-
 Button top, bottom;
+Textfield experimentNumber, experimentNumber2, participantNumber, participantNumber2;
 
 Serial myPort;  // Create object from Serial class
 String val;     // Data received from the serial port
@@ -23,11 +23,8 @@ int boxsize = 200;
 PFont f;
 int cols, rows;
 
-// Move the mouse across the image
-// to change its value
-
 int value = 0;
-int currentScreen =2;
+int currentScreen =0;
 int comparisonNo = 0;
 String currDirection;
 
@@ -40,14 +37,77 @@ ArrayList<Square> trials;
 void setup()
 {  
   size(displayWidth, displayHeight);
-  
-  //noStroke();
+
   cp5 = new ControlP5(this);
   comparisonPanel = new ControlP5(this);
+  setupPanel = new ControlP5(this);
   
   PFont pfont = createFont("Arial",20,true); // use true/false for smooth/no-smooth
   ControlFont font = new ControlFont(pfont,241);
+  ControlFont textFieldFont = new ControlFont(pfont,26);
   
+  experimentNumber = setupPanel.addTextfield("experimentNumber")
+     .setPosition(displayWidth/2-325,300)
+     .setSize(250,40)
+     .setFont(textFieldFont)
+     ;
+     
+      experimentNumber.captionLabel()
+     .setFont(font)
+     .setSize(20)
+     .toUpperCase(false)
+     .setText("Experiment Number")
+     ;
+     
+    experimentNumber2 = setupPanel.addTextfield("experimentNumber2")
+     .setPosition(displayWidth/2-325,400)
+     .setSize(250,40)
+     .setFont(textFieldFont)
+     ;
+     
+      experimentNumber2.captionLabel()
+     .setFont(font)
+     .setSize(20)
+     .toUpperCase(false)
+     .setText("Re-enter Experiment ID")
+     ;
+     
+   participantNumber = setupPanel.addTextfield("participantNumber")
+     .setPosition(displayWidth/2+75,300)
+     .setSize(250,40)
+     .setFont(textFieldFont)
+     ;
+     
+      participantNumber.captionLabel()
+     .setFont(font)
+     .setSize(20)
+     .toUpperCase(false)
+     .setText("Participant Number")
+     ;
+     
+  participantNumber2 = setupPanel.addTextfield("participantNumber2")
+     .setPosition(displayWidth/2+75,400)
+     .setSize(250,40)
+     .setFont(textFieldFont)
+     ;
+     
+      participantNumber2.captionLabel()
+     .setFont(font)
+     .setSize(20)
+     .toUpperCase(false)
+     .setText("Re-Enter Participant Number")
+     ;
+     
+     setupPanel.addBang("Continue")
+     .setPosition(displayWidth/2+200,displayHeight/2+200)
+     .setSize(125, 40)
+     .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER).setFont(font).setSize(20).toUpperCase(false)
+     ;    
+  
+  
+  
+  //experiment number
+  //participant number
 
   continueBtn = cp5.addButton("continueBtn")
      .setValue(0)
@@ -332,7 +392,6 @@ void setup()
   String portName = Serial.list()[3]; //change the 0 to a 1 or 2 etc. to match your port
   myPort = new Serial(this, portName, 9600); 
   
-  //.println(portName);
 }
 
 void controlEvent(ControlEvent theEvent) {
@@ -346,140 +405,18 @@ void controlEvent(ControlEvent theEvent) {
   }
 }
 
-// function colorA will receive changes from 
-// controller with name colorA
-public void continueBtn(int theValue) 
-{
-  if (frameCount > 1)
-  {
-    currentScreen = 3;
-  }
-}
-
-
-public void topBtn(int theValue) 
-{
-  if (frameCount > 1)
-  {
-    comparisonNo++;
-    
-    switch(theValue)
-    {
-      case FRUSTRATION:
-        frustrationTally++;
-      break;
-      case MENTAL:
-        mentalTally++;
-      break;
-      case PHYSICAL:
-        physicalTally++;
-      break;
-      case TEMPORAL:
-        temporalTally++;
-      break;
-      case PERFORMANCE:
-        performanceTally++;
-      break;
-      case EFFORT:
-        effortTally++;
-      break;
-    }
-  }
-}
-
-public void bottomBtn(int theValue) 
-{
-  if (frameCount > 1 )
-  {
-    comparisonNo++;
-    
-    switch(theValue)
-    {
-      case FRUSTRATION:
-        frustrationTally++;
-      break;
-      case MENTAL:
-        mentalTally++;
-      break;
-      case PHYSICAL:
-        physicalTally++;
-      break;
-      case TEMPORAL:
-        temporalTally++;
-      break;
-      case PERFORMANCE:
-        performanceTally++;
-      break;
-      case EFFORT:
-        effortTally++;
-      break;
-    }
-  }
-}
-
-void mentalScale(int a) 
-{
-  mentalRating = a * 5;
-  println("Mental: " +mentalRating);
-}
-
-void physicalScale(int a) 
-{
-  physicalRating = a * 5;
-   println("Physical: " +physicalRating);
-}
-
-void temporalScale(int a) 
-{
-  temporalRating = a * 5;
-   println("Temporal: " +temporalRating);
-}
-
-void performanceScale(int a) 
-{
-  performanceRating = a * 5;
-  println("Performance: " +performanceRating);
-}
-
-void effortScale(int a) 
-{
-  effortRating = a * 5;
-  println("Effort: " +effortRating);
-}
-
-void frustrationScale(int a) 
-{
-  frustrationRating = a * 5;
-  println("Frustration: " +frustrationRating);
-}
-
-
 boolean sketchFullScreen()
 {
-  //return true;
-  return false;
+  return true;
+  //return false;
 }
 
-void initialState()
-{
-  cp5.hide();
-  comparisonPanel.hide();
-  background(255);
-  fill(0);
-  f = createFont("Helvetica", 48);
-
-  textFont(f, 40);
-  textAlign(CENTER);
-  text("Design Guidelines of Peripheral Feedback", displayWidth/2 ,80);
-  textFont(f, 20);
-  text("please 'click' to begin", displayWidth/2 ,displayHeight/2);
-}
 
 void draw()
 {
   switch(currentScreen)
   {
-  case 0: initialState(); break;
+  case 0: setupState(); break;
   case 1: experimentalState(); break;
   case 2: tlxState(); break;
   case 3: comparisonState(); break;

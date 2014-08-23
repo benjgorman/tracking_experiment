@@ -2,6 +2,11 @@ void experimentalState()
 {
   cp5.hide();
   comparisonPanel.hide();
+  setupPanel.hide();
+  
+  textSize(20);
+  
+  
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       int x = i*boxsize;

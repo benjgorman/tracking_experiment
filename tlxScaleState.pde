@@ -7,8 +7,11 @@ int frustrationRating = 0;
 
 void tlxState()
 {
-  background(155);
+  setupPanel.hide();
   comparisonPanel.hide();
+  cp5.show();
+  
+  background(155);
 
   f = createFont("Helvetica", 48); 
 
@@ -77,4 +80,12 @@ void tlxState()
   
   text("Low", 80,736);
   text("High", 560,736);
+}
+
+public void continueBtn(int theValue) 
+{
+  if (frameCount > 1)
+  {
+    currentScreen = 3;
+  }
 }

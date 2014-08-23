@@ -14,39 +14,15 @@ final int EFFORT = 5;
 
 void comparisonState()
 {
-  background(155);
   cp5.hide();
+  setupPanel.hide();
   comparisonPanel.show();
+  
+  
+  background(155);
   
   text("OR", displayWidth/2 , displayHeight/2);
   
-  String s = "Comparison number: " + comparisonNo + "/15";
-  
-  text(s, 150 , 30);
-  
-  String mentalTallyCount = "Mental: " + mentalTally;
-  
-  text(mentalTallyCount, 150 , 100);
-  
-  String physicalTallyCount = "Physical: " + physicalTally;
-  
-  text(physicalTallyCount, 150 , 200);
-  
-  String temporalTallyCount = "Temporal: " + temporalTally;
-  
-  text(temporalTallyCount, 150 , 300);
-  
-  String effortTallyCount = "Effort: " + effortTally;
-  
-  text(effortTallyCount, 150 , 400);
-  
-  String performanceTallyCount = "Performance: " + performanceTally;
-  
-  text(performanceTallyCount, 150 , 500);
-  
-  String frustrationTallyCount = "Frustration: " + frustrationTally;
-  
-  text(frustrationTallyCount, 150 , 600);
   
   if (comparisonNo <= 14)
     switch(comparisonNo)
@@ -181,3 +157,100 @@ void comparisonState()
       currentScreen = 4;
   }
 }
+
+public void topBtn(int theValue) 
+{
+  if (frameCount > 1)
+  {
+    comparisonNo++;
+    
+    switch(theValue)
+    {
+      case FRUSTRATION:
+        frustrationTally++;
+      break;
+      case MENTAL:
+        mentalTally++;
+      break;
+      case PHYSICAL:
+        physicalTally++;
+      break;
+      case TEMPORAL:
+        temporalTally++;
+      break;
+      case PERFORMANCE:
+        performanceTally++;
+      break;
+      case EFFORT:
+        effortTally++;
+      break;
+    }
+  }
+}
+
+public void bottomBtn(int theValue) 
+{
+  if (frameCount > 1 )
+  {
+    comparisonNo++;
+    
+    switch(theValue)
+    {
+      case FRUSTRATION:
+        frustrationTally++;
+      break;
+      case MENTAL:
+        mentalTally++;
+      break;
+      case PHYSICAL:
+        physicalTally++;
+      break;
+      case TEMPORAL:
+        temporalTally++;
+      break;
+      case PERFORMANCE:
+        performanceTally++;
+      break;
+      case EFFORT:
+        effortTally++;
+      break;
+    }
+  }
+}
+
+void mentalScale(int a) 
+{
+  mentalRating = a * 5;
+  println("Mental: " +mentalRating);
+}
+
+void physicalScale(int a) 
+{
+  physicalRating = a * 5;
+   println("Physical: " +physicalRating);
+}
+
+void temporalScale(int a) 
+{
+  temporalRating = a * 5;
+   println("Temporal: " +temporalRating);
+}
+
+void performanceScale(int a) 
+{
+  performanceRating = a * 5;
+  println("Performance: " +performanceRating);
+}
+
+void effortScale(int a) 
+{
+  effortRating = a * 5;
+  println("Effort: " +effortRating);
+}
+
+void frustrationScale(int a) 
+{
+  frustrationRating = a * 5;
+  println("Frustration: " +frustrationRating);
+}
+
