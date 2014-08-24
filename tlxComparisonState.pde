@@ -17,8 +17,7 @@ void comparisonState()
   cp5.hide();
   setupPanel.hide();
   comparisonPanel.show();
-  
-  
+ 
   background(155);
   
   text("OR", displayWidth/2 , displayHeight/2);

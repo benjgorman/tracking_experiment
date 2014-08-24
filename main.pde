@@ -98,30 +98,22 @@ void setup()
      .setText("Re-Enter Participant Number")
      ;
      
-     setupPanel.addBang("Continue")
-     .setPosition(displayWidth/2+200,displayHeight/2+200)
-     .setSize(125, 40)
-     .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER).setFont(font).setSize(20).toUpperCase(false)
-     ;    
+   setupPanel.addBang("Continue")
+   .setPosition(displayWidth/2+200,displayHeight/2+200)
+   .setSize(125, 40)
+   .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER).setFont(font).setSize(20).toUpperCase(false)
+   ;    
+   
+   cp5.addBang("tlxContinueBtn")
+   .setPosition(displayWidth/2+200,displayHeight/2+200)
+   .setSize(125, 40)
+   .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER).setFont(font).setSize(20).toUpperCase(false).setText("Continue")
+   ;    
   
   
   
   //experiment number
   //participant number
-
-  continueBtn = cp5.addButton("continueBtn")
-     .setValue(0)
-     .setPosition(850,665)
-     .setSize(200,50)
-     ;
-     
-     continueBtn.captionLabel()
-     .setFont(font)
-     .setSize(20)
-     .toUpperCase(false)
-     .setText("Continue")
-     .align(CENTER, CENTER)
-     ;
      
    top = comparisonPanel.addButton("topBtn")
      .setValue(0)

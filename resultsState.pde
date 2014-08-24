@@ -5,6 +5,8 @@ float effortWeight;
 float performanceWeight;
 float frustrationWeight;
 
+float totalTlxValue = 0;
+
 void resultsState()
 {
   background(155);
@@ -43,7 +45,6 @@ void resultsState()
   text(frustrationRating, displayWidth/2-50,375);
   
   mentalWeight = (float)mentalTally/15;
-  println("mental weight" + (float)mentalTally/15);
   physicalWeight =  (float)physicalTally/15;
   temporalWeight = (float)temporalTally / 15;
   performanceWeight = (float)performanceTally / 15;
@@ -58,5 +59,17 @@ void resultsState()
   text(frustrationWeight, displayWidth/2+250,375);
   
   text("Overall", displayWidth/2-300 ,575);
+  
+  float totalTlxValue = 
+  ((float)mentalRating * mentalWeight) + 
+  ((float)physicalRating * physicalWeight) + 
+  ((float)temporalRating * temporalWeight) + 
+  ((float)performanceRating * performanceWeight) + 
+  ((float)effortRating * effortWeight) +
+  ((float)frustrationRating * frustrationWeight);
+  
+  text(totalTlxValue, displayWidth/2-100 ,575);
+  
+  
 
 }

@@ -11,7 +11,7 @@ void tlxState()
   comparisonPanel.hide();
   cp5.show();
   
-  background(155);
+  background(255);
 
   f = createFont("Helvetica", 48); 
 
@@ -82,10 +82,7 @@ void tlxState()
   text("High", 560,736);
 }
 
-public void continueBtn(int theValue) 
+public void tlxContinueBtn() 
 {
-  if (frameCount > 1)
-  {
-    currentScreen = 3;
-  }
+   currentScreen = 3;
 }
