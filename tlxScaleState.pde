@@ -15,12 +15,44 @@ void tlxState()
 
   f = createFont("Helvetica", 48); 
 
-  textFont(f, 40);
+  textFont(f, 32);
   textAlign(CENTER);
-  text("Click Done or continue to adjust weightings", displayWidth/2 ,80);
+  text("Click on each scale at the point that best indicates your experience of the task", displayWidth/2 ,80);
   
   textFont(f, 20);
   text("Mental Demand", 325,158);
+  
+  String mental = "How much mental and perceptual activity was required (e.g. thinking, deciding, calculating, remembering, looking, searching, etc)? Was the task easy or demanding, simple or complex, exacting or forgiving?";
+  textFont(f, 14);
+  textAlign(LEFT);
+  fill(50);
+  text(mental, 655, 165, 500, 100);
+  
+  //String mental = "How much mental and perceptual activity was required (e.g. thinking, deciding, calculating, remembering, looking, searching, etc)? Was the task easy or demanding, simple or complex, exacting or forgiving?";
+  textFont(f, 14);
+  textAlign(LEFT);
+  fill(50);
+  text(mental, 655, 265, 500, 100);
+  
+  textFont(f, 14);
+  textAlign(LEFT);
+  fill(50);
+  text(mental, 655, 365, 500, 100);
+  
+  textFont(f, 14);
+  textAlign(LEFT);
+  fill(50);
+  text(mental, 655, 465, 500, 100);
+  
+  textFont(f, 14);
+  textAlign(LEFT);
+  fill(50);
+  text(mental, 655, 565, 500, 100);
+  
+  textFont(f, 14);
+  textAlign(LEFT);
+  fill(50);
+  text(mental, 655, 665, 500, 100);
   
   fill(0);
   rect(59, 179, 520, 36);

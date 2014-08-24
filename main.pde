@@ -24,7 +24,7 @@ PFont f;
 int cols, rows;
 
 int value = 0;
-int currentScreen =0;
+int currentScreen =2;
 int comparisonNo = 0;
 String currDirection;
 
@@ -37,7 +37,7 @@ ArrayList<Square> trials;
 void setup()
 {  
   size(displayWidth, displayHeight);
-
+  
   cp5 = new ControlP5(this);
   comparisonPanel = new ControlP5(this);
   setupPanel = new ControlP5(this);
@@ -105,9 +105,9 @@ void setup()
    ;    
    
    cp5.addBang("tlxContinueBtn")
-   .setPosition(displayWidth/2+200,displayHeight/2+200)
+   .setPosition(displayWidth/2+485,displayHeight/2+335)
    .setSize(125, 40)
-   .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER).setFont(font).setSize(20).toUpperCase(false).setText("Continue")
+   .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER).setFont(font).setSize(20).toUpperCase(false).setText("Continue >")
    ;    
   
   
@@ -399,8 +399,8 @@ void controlEvent(ControlEvent theEvent) {
 
 boolean sketchFullScreen()
 {
-  return true;
-  //return false;
+  //return true;
+  return false;
 }
 
 
