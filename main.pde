@@ -28,6 +28,8 @@ int currentScreen =2;
 int comparisonNo = 0;
 String currDirection;
 
+Textlabel title, message;
+
 float rect_x = displayWidth/2 - size;
 float rect_y = displayHeight/2 - size;
 float rect_w = scale;
@@ -45,6 +47,22 @@ void setup()
   PFont pfont = createFont("Arial",20,true); // use true/false for smooth/no-smooth
   ControlFont font = new ControlFont(pfont,241);
   ControlFont textFieldFont = new ControlFont(pfont,26);
+  
+  title = cp5.addTextlabel("label")
+                    .setText("Click on each scale at the point that best indicates your experience of the task")
+                    .setPosition(65, 40)
+                    .setColorValue(0)
+                    .setFont(createFont("Helvetica",32))
+                    ;
+                    
+  message = setupPanel.addTextlabel("label")
+                    .setText("Warning - one or more fields do not match!")
+                    .setColor(155)
+                    .setFont(createFont("Helvetica",32))
+                    .setVisible(false)
+                    ;
+                    
+                    message.setPosition(displayWidth/2-300, 200);
   
   experimentNumber = setupPanel.addTextfield("experimentNumber")
      .setPosition(displayWidth/2-325,300)
@@ -399,8 +417,8 @@ void controlEvent(ControlEvent theEvent) {
 
 boolean sketchFullScreen()
 {
-  //return true;
-  return false;
+  return true;
+  //return false;
 }
 
 

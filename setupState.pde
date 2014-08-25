@@ -6,6 +6,7 @@ void setupState()
   setupPanel.show();
  
   background(0);
+  
   fill(255);
   f = createFont("Helvetica", 48);
 
@@ -18,6 +19,18 @@ void setupState()
 
 public void Continue() 
 {
-  //setupPanel.get(Textfield.class,"participantNumber").clear();
-  currentScreen = 1;
+  if (experimentNumber.getText().equals(experimentNumber2.getText()) 
+  && participantNumber.getText().equals(participantNumber2.getText())
+  && (participantNumber.getText().equals("") == false)
+  && participantNumber2.getText().equals("") == false
+  && experimentNumber.getText().equals("") == false
+  && experimentNumber.getText().equals("") == false)
+  {
+    //save to the array here
+    currentScreen = 1;
+  }
+  else
+  {
+    message.setVisible(true);
+  }
 }

@@ -14,45 +14,42 @@ void tlxState()
   background(255);
 
   f = createFont("Helvetica", 48); 
-
-  textFont(f, 32);
-  textAlign(CENTER);
-  text("Click on each scale at the point that best indicates your experience of the task", displayWidth/2 ,80);
-  
-  textFont(f, 20);
-  text("Mental Demand", 325,158);
   
   String mental = "How much mental and perceptual activity was required (e.g. thinking, deciding, calculating, remembering, looking, searching, etc)? Was the task easy or demanding, simple or complex, exacting or forgiving?";
   textFont(f, 14);
   textAlign(LEFT);
   fill(50);
-  text(mental, 655, 165, 500, 100);
+  text(mental, 655, 175, 500, 100);
   
-  //String mental = "How much mental and perceptual activity was required (e.g. thinking, deciding, calculating, remembering, looking, searching, etc)? Was the task easy or demanding, simple or complex, exacting or forgiving?";
+  String physical = "How much physical activity was required (e.g. pushing, pulling, turning, controlling, activating, etc)? Was the task easy or demanding, slow or brisk, slack or strenuous, restful or laborious?";
   textFont(f, 14);
   textAlign(LEFT);
   fill(50);
-  text(mental, 655, 265, 500, 100);
+  text(physical, 655, 275, 500, 100);
   
+  String temporal = "How much time pressure did you feel due to the rate of pace at which the tasks or task elements occurred? Was the pace slow and leisurely or rapid and frantic?";
   textFont(f, 14);
   textAlign(LEFT);
   fill(50);
-  text(mental, 655, 365, 500, 100);
+  text(temporal, 655, 375, 500, 100);
   
+  String performance = "How successful do you think you were in accomplishing the goals of the task set by the experimenter (or yourself)? How satisfied were you with your performance in accomplishing these goals";
   textFont(f, 14);
   textAlign(LEFT);
   fill(50);
-  text(mental, 655, 465, 500, 100);
+  text(performance, 655, 470, 500, 100);
   
+  String effort = "How hard did you have to work (mentally and physically) to accomplish your level of performance?";
   textFont(f, 14);
   textAlign(LEFT);
   fill(50);
-  text(mental, 655, 565, 500, 100);
+  text(effort, 655, 575, 500, 100);
   
+  String frustration = "How insecure, discouraged, irritated, stressed and annoyed versus secure, gratified, content, relaxed and complacent did you feel during the task?";
   textFont(f, 14);
   textAlign(LEFT);
   fill(50);
-  text(mental, 655, 665, 500, 100);
+  text(frustration, 655, 675, 500, 100);
   
   fill(0);
   rect(59, 179, 520, 36);
@@ -85,36 +82,46 @@ void tlxState()
   rect(59, 670, 0.6, 35);
   rect(579, 670, 0.6, 35);
   
-  text("Low", 80,236);
-  text("High", 560,236);
+  textFont(f, 20);
+  text("Mental Demand", 260,158);
   
-  text("Physical Demand", 325,258);
+  text("Low", 60,236);
+  text("High", 540,236);
   
-  text("Low", 80,336);
-  text("High", 560,336);
+  text("Physical Demand", 260,258);
   
-  text("Temporal Demand", 300,360);
+  text("Low", 60,336);
+  text("High", 540,336);
   
-  text("Low", 80,436);
-  text("High", 560,436);
+  text("Temporal Demand", 260,360);
+  
+  text("Low", 60,436);
+  text("High", 540,436);
  
-  text("Performance", 300,460);
+  text("Performance", 260,460);
   
-  text("Good", 80,536);
-  text("Poor", 560,536);
+  text("Good", 60,536);
+  text("Poor", 540,536);
   
-  text("Effort", 300,560);
+  text("Effort", 260,560);
   
-  text("Low", 80,636);
-  text("High", 560,636);
+  text("Low", 60,636);
+  text("High", 540,636);
   
-  text("Frustration", 300,660);
+  text("Frustration", 260,660);
   
-  text("Low", 80,736);
-  text("High", 560,736);
+  text("Low", 60,736);
+  text("High", 540,736);
 }
 
 public void tlxContinueBtn() 
 {
+  if(mentalRating > 0 && physicalRating > 0 && performanceRating > 0 && temporalRating  > 0 && frustrationRating > 0 && effortRating > 0)
+  {
    currentScreen = 3;
+  }
+  else
+  {
+    title.setText("Sorry - A value must be selected for every scale!");
+  }
 }
