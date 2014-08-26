@@ -10,6 +10,8 @@ void tlxState()
   setupPanel.hide();
   comparisonPanel.hide();
   cp5.show();
+  experimentPanel.hide();
+  trialPanel.hide();
   
   background(255);
 

@@ -17,6 +17,8 @@ void comparisonState()
   cp5.hide();
   setupPanel.hide();
   comparisonPanel.show();
+  experimentPanel.hide();
+  trialPanel.hide();
   
   f = createFont("Helvetica", 48); 
 background(255);

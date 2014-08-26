@@ -4,6 +4,8 @@ void setupState()
   cp5.hide();
   comparisonPanel.hide();
   setupPanel.show();
+  experimentPanel.hide();
+  trialPanel.hide();
  
   background(0);
   
@@ -27,6 +29,8 @@ public void Continue()
   && experimentNumber.getText().equals("") == false)
   {
     //save to the array here
+    experimentID = experimentNumber.getText();
+    participantID = participantNumber.getText();
     currentScreen = 1;
   }
   else

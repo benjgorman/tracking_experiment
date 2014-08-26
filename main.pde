@@ -2,12 +2,13 @@ import processing.serial.*;
 import java.util.*;
 import controlP5.*;
 
-ControlP5 cp5, comparisonPanel, setupPanel;
+ControlP5 cp5, comparisonPanel, setupPanel, experimentPanel, trialPanel;
 
 RadioButton r1, r2, r3, r4, r5, r6;
 Button continueBtn;
 Button top, bottom;
-Textfield experimentNumber, experimentNumber2, participantNumber, participantNumber2;
+Button submitBang;
+Textfield experimentNumber, experimentNumber2, participantNumber, participantNumber2, trialAnswer, trialAnswer2;
 
 Serial myPort;  // Create object from Serial class
 String val;     // Data received from the serial port
@@ -19,16 +20,19 @@ int square;
 
 int trial = 0;
 
+String experimentID;
+String participantID;
+
 int boxsize = 200;
 PFont f;
 int cols, rows;
 
 int value = 0;
-int currentScreen =2;
+int currentScreen =0;
 int comparisonNo = 0;
 String currDirection;
 
-Textlabel title, message;
+Textlabel title, message, expID, partID;
 
 float rect_x = displayWidth/2 - size;
 float rect_y = displayHeight/2 - size;
@@ -43,14 +47,70 @@ void setup()
   cp5 = new ControlP5(this);
   comparisonPanel = new ControlP5(this);
   setupPanel = new ControlP5(this);
+  experimentPanel = new ControlP5(this);
+  trialPanel =  new ControlP5(this);
   
   PFont pfont = createFont("Arial",20,true); // use true/false for smooth/no-smooth
   ControlFont font = new ControlFont(pfont,241);
   ControlFont textFieldFont = new ControlFont(pfont,26);
   
-  title = cp5.addTextlabel("label")
-                    .setText("Click on each scale at the point that best indicates your experience of the task")
+  experimentPanel.addBang("Start")
+   .setPosition(displayWidth/2-62.5,displayHeight/2-20)
+   .setSize(125, 40)
+   .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER).setFont(font).setSize(20).toUpperCase(false)
+   ;
+   
+  trialAnswer = trialPanel.addTextfield("trialAnswer")
+     .setPosition(displayWidth/2-325,300)
+     .setSize(250,40)
+     .setFont(textFieldFont)
+     ;
+     
+     trialAnswer.captionLabel()
+     .setFont(font)
+     .setSize(20)
+     .toUpperCase(false)
+     .setText("Trial Answer")
+     ;
+     
+  trialAnswer2 = trialPanel.addTextfield("trialAnswer2")
+     .setPosition(displayWidth/2-325,500)
+     .setSize(250,40)
+     .setFont(textFieldFont)
+     ;
+     
+     trialAnswer2.captionLabel()
+     .setFont(font)
+     .setSize(20)
+     .toUpperCase(false)
+     .setText("Re-enter Trial Answer")
+     ;
+     
+   submitBang = trialPanel.addButton("Submit")
+   .setPosition(displayWidth/2-62.5,displayHeight/2-20)
+   .setSize(125, 40)
+   ;
+   
+   submitBang.getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER).setFont(font).setSize(20).toUpperCase(false);
+   
+   expID = experimentPanel.addTextlabel("experiment_id")
+                    .setText("ExperimentID: ")
                     .setPosition(65, 40)
+                    .setColorValue(0)
+                    .setFont(createFont("Helvetica",32))
+                    ;
+                    
+                    
+   partID = experimentPanel.addTextlabel("participant_id")
+                    .setText("ParticipantID: ")
+                    .setPosition(65, 80)
+                    .setColorValue(0)
+                    .setFont(createFont("Helvetica",32))
+                    ;
+  
+  title = cp5.addTextlabel("label") // fix me
+                    .setText("ParticipantID")
+                    .setPosition(65, 80)
                     .setColorValue(0)
                     .setFont(createFont("Helvetica",32))
                     ;
@@ -427,7 +487,7 @@ void draw()
   switch(currentScreen)
   {
   case 0: setupState(); break;
-  case 1: experimentalState(); break;
+  case 1: experimental(); break;
   case 2: tlxState(); break;
   case 3: comparisonState(); break;
   case 4: resultsState(); break;
