@@ -53,7 +53,7 @@ void runTrial()
     setupPanel.hide();
     experimentPanel.hide();
 
-  if (trialRunning == true)
+  if (trialRunning == true && trial <=23)
   {
     background(255);
     trialPanel.hide();
@@ -128,9 +128,9 @@ void runTrial()
       textSize(20);
       text("Press space bar to begin the trial, make sure they have calibrated the headtracker and all wires and etc are in", displayWidth/2, 20);
     }
-    else if (trial > 24)
+    else if (trial == 24)
     {
-      
+      currentScreen = 2;
     }
     else
     {
@@ -206,7 +206,7 @@ public void Submit()
 
 void keyPressed() 
 {
-  if (currentState == 1 && trialRunning == false && key== ' ')
+  if (currentState == 1 && trialRunning == false && key== ' ' && trial == 0)
   {
     c = new ControlTimer();
     c.setSpeedOfTime(1);
