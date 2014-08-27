@@ -7,22 +7,26 @@ public void visualDirection(int direction)
     case withinTarget_X:
       withinTarget_X_Visual();
       break;
-    case withinTarget_Y:
-    
-      break;
-    case rightOfTarget:
       
+    case withinTarget_Y:
+      withinTarget_Y_Visual();
+      break;
+      
+    case rightOfTarget:
+     rightOfTarget_Visual();
      break;
      
     case leftOfTarget:
+      leftOfTarget_Visual();
       break;
       
     case aboveTarget:
+      above_Target_Visual();
       break;
       
     case belowTarget:
+      below_Target_Visual();
       break;
-    
   }
   
 }
@@ -42,7 +46,7 @@ public void leftOfTarget_Visual()
   myPort.write('1');
 }
 
-public void within_Target_Y_Visual()
+public void withinTarget_Y_Visual()
 {
   myPort.write('5');
 }

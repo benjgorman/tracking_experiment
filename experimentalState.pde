@@ -108,15 +108,18 @@ void runTrial()
     {
         text("X ON TARGET", 160, 25);
         
-        myPort.write('4');  //when cursor is within target
+        feedback(withinTarget_X, currentFeedbackType);
+        //myPort.write('4');  //when cursor is within target
     }
     else if (mouseX > xposition + rect_w) //When cursor is on right of target
     {
-      myPort.write('2');
+      feedback(rightOfTarget, currentFeedbackType);
+      //myPort.write('2');
     }
     else if (mouseX < xposition) //When cursor is on the left of target
     {
-      myPort.write('1');
+      feedback(rightOfTarget, currentFeedbackType);
+      //myPort.write('1');
     }
     else
     {
@@ -126,15 +129,18 @@ void runTrial()
     if ((mouseY > yposition) && (mouseY < yposition + rect_h))
     {
         text("Y ON TARGET", 160, 65);
-        myPort.write('5');  //when cursor is within target
+        feedback(withinTarget_X,currentFeedbackType);
+        //myPort.write('5');  //when cursor is within target
     }
     else if (mouseY > yposition + rect_h) //When cursor is above of target
     {
-      myPort.write('6');
+      feedback(aboveTarget, currentFeedbackType);
+     // myPort.write('6');
     }
     else if (mouseY < yposition) //When cursor is on the bottom of target
     {
-      myPort.write('7');
+      feedback(belowTarget, currentFeedbackType);
+      //myPort.write('7');
     }
     else
     {
