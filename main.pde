@@ -2,12 +2,29 @@ import processing.serial.*;
 import java.util.*;
 import controlP5.*;
 
+final int VISUAL = 0;
+final int AUDIO = 1;
+final int TACTILE = 2;
+
+final int withinTarget_X = 1;
+final int withinTarget_Y = 2;
+final int rightOfTarget = 3;
+final int leftOfTarget = 4;
+final int aboveTarget = 5;
+final int belowTarget = 6;
+
+
+int currentFeedbackType = VISUAL;
+
 ControlP5 cp5, comparisonPanel, setupPanel, experimentPanel, trialPanel;
 
 RadioButton r1, r2, r3, r4, r5, r6;
 Button continueBtn;
 Button top, bottom;
 Button submitBang;
+
+RadioButton feedbackType;
+
 Textfield experimentNumber, experimentNumber2, participantNumber, participantNumber2, trialAnswer, trialAnswer2;
 
 Serial myPort;  // Create object from Serial class
@@ -53,8 +70,29 @@ void setup()
   
   PFont pfont = createFont("Arial",20,true); // use true/false for smooth/no-smooth
   ControlFont font = new ControlFont(pfont,241);
+  ControlFont radioFont = new ControlFont(pfont, 20);
   ControlFont textFieldFont = new ControlFont(pfont,26);
   
+  
+  experimentPanel.setControlFont(radioFont);
+  
+  feedbackType = experimentPanel.addRadioButton("feedbackType")
+         .setPosition(displayWidth/2-140,displayHeight/2-150)
+         .setItemWidth(40)
+         .setItemHeight(40)
+         .setColorForeground(color(0))
+         .setColorBackground(color(155))
+         .setColorActive(color(0))
+         .setColorLabel(color(125))
+         .setItemsPerRow(3)
+         .setSpacingColumn(80)
+         .addItem("Audio",VISUAL)
+         .addItem("Visual",AUDIO)
+         .addItem("Tactile",TACTILE)
+         .toUpperCase(false)
+         ;
+         
+        
   experimentPanel.addBang("Start")
    .setPosition(displayWidth/2-62.5,displayHeight/2-20)
    .setSize(125, 40)

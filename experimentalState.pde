@@ -45,6 +45,23 @@ void experimentalState()
   //runTrial(); //pass in target square etc
 }
 
+void feedback(int direction, int feedback)
+{
+  switch(feedback)
+  {
+    case VISUAL:
+      visualDirection(direction);
+    break;
+    case AUDIO:
+      //audioDirection(direction);
+    break;
+    case TACTILE:
+      //tactileDirection(direction);
+    break;
+  }
+}
+
+
 void runTrial()
 {
     background(0);
@@ -84,9 +101,13 @@ void runTrial()
     xposition = tempSquare.xposition;
     yposition = tempSquare.yposition;
     
+    
+    
+    
     if ((mouseX > xposition) && (mouseX < xposition + rect_w))
     {
         text("X ON TARGET", 160, 25);
+        
         myPort.write('4');  //when cursor is within target
     }
     else if (mouseX > xposition + rect_w) //When cursor is on right of target
@@ -107,11 +128,11 @@ void runTrial()
         text("Y ON TARGET", 160, 65);
         myPort.write('5');  //when cursor is within target
     }
-    else if (mouseY > yposition + rect_h) //When cursor is on right of target
+    else if (mouseY > yposition + rect_h) //When cursor is above of target
     {
       myPort.write('6');
     }
-    else if (mouseY < yposition) //When cursor is on the left of target
+    else if (mouseY < yposition) //When cursor is on the bottom of target
     {
       myPort.write('7');
     }
