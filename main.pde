@@ -32,7 +32,7 @@ int currentScreen =0;
 int comparisonNo = 0;
 String currDirection;
 
-Textlabel title, message, expID, partID;
+Textlabel title, message, expID, partID, trialWarning;
 
 float rect_x = displayWidth/2 - size;
 float rect_y = displayHeight/2 - size;
@@ -43,6 +43,7 @@ ArrayList<Square> trials;
 void setup()
 {  
   size(displayWidth, displayHeight);
+  frameRate(30);
   
   cp5 = new ControlP5(this);
   comparisonPanel = new ControlP5(this);
@@ -74,7 +75,7 @@ void setup()
      ;
      
   trialAnswer2 = trialPanel.addTextfield("trialAnswer2")
-     .setPosition(displayWidth/2-325,500)
+     .setPosition(displayWidth/2-325,400)
      .setSize(250,40)
      .setFont(textFieldFont)
      ;
@@ -86,8 +87,17 @@ void setup()
      .setText("Re-enter Trial Answer")
      ;
      
+      trialWarning = trialPanel.addTextlabel("label")
+                    .setText("Warning - one or more fields do not match!")
+                    .setColor(155)
+                    .setFont(createFont("Helvetica",32))
+                    .setVisible(false)
+                    ;
+                    
+                    trialWarning.setPosition(displayWidth/2-300, 200);
+     
    submitBang = trialPanel.addButton("Submit")
-   .setPosition(displayWidth/2-62.5,displayHeight/2-20)
+   .setPosition(displayWidth/2+125,400)
    .setSize(125, 40)
    ;
    

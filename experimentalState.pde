@@ -32,6 +32,7 @@ void startState()
   //choose counterbalancing
   
   //start button
+ 
 }
 
 void experimentalState()
@@ -174,6 +175,8 @@ class Square
 
 public void Submit()
 {
+  if (trialAnswer.getText().equals(trialAnswer2.getText()) && trialAnswer.getText().equals("") == false && trialAnswer2.getText().equals("") == false)
+  {
   //save the result to the array of results
   //also save the answer
   //along with the time
@@ -192,6 +195,13 @@ public void Submit()
   //set the new trial to run
   trial++;
   trialRunning = true;
+  
+  trialWarning.setVisible(false);
+  }
+  else
+  {
+    trialWarning.setVisible(true);
+  }
 }
 
 void keyPressed() 

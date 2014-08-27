@@ -16,7 +16,6 @@ void setupState()
   textAlign(CENTER);
   text("Design Framework for Peripheral Feedback", displayWidth/2 ,80);
   
- //text(setupPanel.get(Textfield.class,"experimentNumber").getText(), 360,130);
 }
 
 public void Continue() 
