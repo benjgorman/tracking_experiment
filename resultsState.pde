@@ -73,5 +73,33 @@ void resultsState()
   text(totalTlxValue, displayWidth/2-100 ,575);
   
   
+  output.println("ParticipantNumber\t" + participantID);
+  output.println("ExperimentNumber\t" + experimentID);
+  output.println("Trial\tTarget\tResponse\tResponseTime\tError\tDistractorPresent\tModality");
+  
+  String seperator = "\t";
+  
+  for (int i=0; i<trials.size(); i++)
+  {
+    
+    output.println(i + seperator + trials.get(i).target_number + seperator + trials.get(i).response + seperator + trials.get(i).responseTime);
+    //still need distractorpresent + modality
+    
+    //get the trial ID
+    //get the trial Target square
+    //get the response from the participant
+    //get the recorded response time
+    //calculate the error
+    //was there a distractor?
+    //get the modality used
+    //add the participant ID
+    //output.println(i + seperator + 
+  }
+  
+  output.flush(); // Writes the remaining data to the file
+  output.close(); // Finishes the file
+
+
+  exit(); // Stops the program
 
 }

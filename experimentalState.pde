@@ -25,6 +25,8 @@ void startState()
   
   expID.setText("ExperimentID: " + experimentID);
   partID.setText("ParticipantID: " + participantID);
+  
+  output = createWriter(participantID + "_" + experimentID + ".txt");
  
   //experiment number
   //participant number
@@ -53,10 +55,10 @@ void feedback(int direction, int feedback)
       visualDirection(direction);
     break;
     case AUDIO:
-      //audioDirection(direction);
+      audioDirection(direction);
     break;
     case TACTILE:
-      //tactileDirection(direction);
+      tactileDirection(direction);
     break;
   }
 }
@@ -97,11 +99,9 @@ void runTrial()
     text("X:" + mouseX, 20, 25);
     
     text("Y:" + mouseY, 100, 25);
-    
+   
     xposition = tempSquare.xposition;
     yposition = tempSquare.yposition;
-    
-    
     
     
     if ((mouseX > xposition) && (mouseX < xposition + rect_w))
@@ -110,18 +110,17 @@ void runTrial()
         
         feedback(withinTarget_X, currentFeedbackType);
         
-        
         //myPort.write('4');  //when cursor is within target
     }
     else if (mouseX > xposition + rect_w) //When cursor is on right of target
     {
-      //feedback(rightOfTarget, currentFeedbackType);
-      myPort.write('2');
+      feedback(rightOfTarget, currentFeedbackType);
+      //myPort.write('2');
     }
     else if (mouseX < xposition) //When cursor is on the left of target
     {
-      //feedback(leftOfTarget, currentFeedbackType);
-      myPort.write('1');
+      feedback(leftOfTarget, currentFeedbackType);
+      //myPort.write('1');
     }
     else
     {
@@ -152,7 +151,7 @@ void runTrial()
   }
   else
   {
-    if (trial == 0)
+    if (trial == -1)
     {
       textSize(20);
       text("Press space bar to begin the trial, make sure they have calibrated the headtracker and all wires and etc are in", displayWidth/2, 20);
@@ -191,14 +190,16 @@ void mouseMoved()
 
 class Square 
 { 
-  int xposition, yposition, id, answer, number;
-  Square (int x, int y, int ans, int num) 
+  int xposition,yposition;
+  int target_number;
+  int response;
+  long responseTime;
+  
+  Square (int x, int y, int num) 
   {  
     xposition = x;
     yposition = y;
-    answer = ans;
-    num = number;
-    
+    target_number = num;
   } 
 }
 
@@ -206,13 +207,23 @@ public void Submit()
 {
   if (trialAnswer.getText().equals(trialAnswer2.getText()) && trialAnswer.getText().equals("") == false && trialAnswer2.getText().equals("") == false)
   {
-  //save the result to the array of results
-  //also save the answer
-  //along with the time
   
-  trialAnswer.clear();
-  trialAnswer2.clear();
+      System.out.println("Target is " + trials.get(trial).target_number);
+      
+      trials.get(trial).response = Integer.parseInt(trialAnswer.getText());
+      trials.get(trial).responseTime = time;
+      
+      System.out.println("Target response was " + trials.get(trial).response);
+      System.out.println("Target response time was " + trials.get(trial).responseTime);
+      
   
+    trialAnswer.clear();
+    trialAnswer2.clear();
+    
+    //trials.set(trial, temporary);
+    
+    //println("Response:" + trials.get(trial).response);
+    
   //clear the previous textboxes
   trialAnswer.setFocus(false);
   trialAnswer2.setFocus(false);
@@ -233,9 +244,11 @@ public void Submit()
   }
 }
 
+boolean played = false;
+
 void keyPressed() 
-{
-  if (currentState == 1 && trialRunning == false && key== ' ' && trial == 0)
+{ 
+  if (currentState == 1 && trialRunning == false && key== ' ' && trial == -1)
   {
     c = new ControlTimer();
     c.setSpeedOfTime(1);

@@ -2,6 +2,8 @@ import processing.serial.*;
 import java.util.*;
 import controlP5.*;
 
+PrintWriter output;
+
 final int VISUAL = 0;
 final int AUDIO = 1;
 final int TACTILE = 2;
@@ -12,7 +14,6 @@ final int rightOfTarget = 3;
 final int leftOfTarget = 4;
 final int aboveTarget = 5;
 final int belowTarget = 6;
-
 
 int currentFeedbackType = VISUAL;
 
@@ -35,7 +36,7 @@ float xposition;
 float yposition;
 int square;
 
-int trial = 0;
+int trial = -1;
 
 String experimentID;
 String participantID;
@@ -77,7 +78,7 @@ void setup()
   experimentPanel.setControlFont(radioFont);
   
   feedbackType = experimentPanel.addRadioButton("feedbackType")
-         .setPosition(displayWidth/2-140,displayHeight/2-150)
+         .setPosition(displayWidth/2-280,displayHeight/2-150)
          .setItemWidth(40)
          .setItemHeight(40)
          .setColorForeground(color(0))
@@ -85,10 +86,16 @@ void setup()
          .setColorActive(color(0))
          .setColorLabel(color(125))
          .setItemsPerRow(3)
-         .setSpacingColumn(80)
-         .addItem("Audio",VISUAL)
-         .addItem("Visual",AUDIO)
+         .setSpacingColumn(200)
+         .setSpacingRow(10)
+         .addItem("Audio",AUDIO)
+         .addItem("Visual",VISUAL)
          .addItem("Tactile",TACTILE)
+         .addItem("Audio (distraction)",AUDIO)
+         
+         .addItem("Visual (distraction)",VISUAL)
+         
+         .addItem("Tactile (distraction)",TACTILE)
          .toUpperCase(false)
          ;
          
@@ -464,30 +471,30 @@ void setup()
          
          
   trials = new ArrayList<Square>();  // Create an empty ArrayList
-  trials.add(new Square(0,0,0,1));  // Start by adding one element
-  trials.add(new Square(200,0,0,2));  // Start by adding one element
-  trials.add(new Square(400,0,0,3));  // Start by adding one element
-  trials.add(new Square(600,0,0,4));  // Start by adding one element
-  trials.add(new Square(800,0,0,5));  // Start by adding one element
-  trials.add(new Square(1000,0,0,6));  // Start by adding one element
-  trials.add(new Square(0,200,0,7));  // Start by adding one element
-  trials.add(new Square(200,200,0,8));  // Start by adding one element
-  trials.add(new Square(400,200,0,9));  // Start by adding one element
-  trials.add(new Square(600,200,0,10));  // Start by adding one element
-  trials.add(new Square(800,200,0,11));  // Start by adding one element
-  trials.add(new Square(1000,200,0,12));  // Start by adding one element
-  trials.add(new Square(0,400,0,13));  // Start by adding one element
-  trials.add(new Square(200,400,0,14));  // Start by adding one element
-  trials.add(new Square(400,400,0,15));  // Start by adding one element
-  trials.add(new Square(600,400,0,16));  // Start by adding one element
-  trials.add(new Square(800,400,0,17));  // Start by adding one element
-  trials.add(new Square(1000,400,0,18));  // Start by adding one element
-  trials.add(new Square(0,600,0,19));  // Start by adding one element
-  trials.add(new Square(200,600,0,20));  // Start by adding one element
-  trials.add(new Square(400,600,0,21));  // Start by adding one element
-  trials.add(new Square(600,600,0,22));  // Start by adding one element
-  trials.add(new Square(800,600,0,23));  // Start by adding one element
-  trials.add(new Square(1000,600,0,24));  // Start by adding one element
+  trials.add(new Square(0,0,1));  // Start by adding one element
+  trials.add(new Square(200,0,2));  // Start by adding one element
+  trials.add(new Square(400,0,3));  // Start by adding one element
+  trials.add(new Square(600,0,4));  // Start by adding one element
+  trials.add(new Square(800,0,5));  // Start by adding one element
+  trials.add(new Square(1000,0,6));  // Start by adding one element
+  trials.add(new Square(0,200,7));  // Start by adding one element
+  trials.add(new Square(200,200,8));  // Start by adding one element
+  trials.add(new Square(400,200,9));  // Start by adding one element
+  trials.add(new Square(600,200,10));  // Start by adding one element
+  trials.add(new Square(800,200,11));  // Start by adding one element
+  trials.add(new Square(1000,200,12));  // Start by adding one element
+  trials.add(new Square(0,400,13));  // Start by adding one element
+  trials.add(new Square(200,400,14));  // Start by adding one element
+  trials.add(new Square(400,400,15));  // Start by adding one element
+  trials.add(new Square(600,400,16));  // Start by adding one element
+  trials.add(new Square(800,400,17));  // Start by adding one element
+  trials.add(new Square(1000,400,18));  // Start by adding one element
+  trials.add(new Square(0,600,19));  // Start by adding one element
+  trials.add(new Square(200,600,20));  // Start by adding one element
+  trials.add(new Square(400,600,21));  // Start by adding one element
+  trials.add(new Square(600,600,22));  // Start by adding one element
+  trials.add(new Square(800,600,23));  // Start by adding one element
+  trials.add(new Square(1000,600,24));  // Start by adding one element
   
   Collections.shuffle(trials);
   
@@ -510,6 +517,8 @@ void setup()
   String portName = Serial.list()[3]; //change the 0 to a 1 or 2 etc. to match your port
   myPort = new Serial(this, portName, 9600); 
   
+  audioSetup();
+  
 }
 
 void controlEvent(ControlEvent theEvent) {
@@ -519,14 +528,13 @@ void controlEvent(ControlEvent theEvent) {
       print(int(theEvent.getGroup().getArrayValue()[i]));
     }
     println("\t "+theEvent.getValue());
-   // myColorBackground = color(int(theEvent.group().value()*50),0,0);
   }
 }
 
 boolean sketchFullScreen()
 {
-  return true;
-  //return false;
+  //return true;
+  return false;
 }
 
 
@@ -542,6 +550,5 @@ void draw()
   default: background(0); break;
   }
 }
-
 
 

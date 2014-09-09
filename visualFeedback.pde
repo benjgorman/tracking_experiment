@@ -1,4 +1,7 @@
-
+public void visualSetup()
+{
+  //initialize the arduino in here
+}
 
 public void visualDirection(int direction)
 {
