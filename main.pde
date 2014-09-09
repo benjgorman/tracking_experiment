@@ -61,7 +61,7 @@ ArrayList<Square> trials;
 void setup()
 {  
   size(displayWidth, displayHeight);
-  frameRate(30);
+  frameRate(60);
   
   cp5 = new ControlP5(this);
   comparisonPanel = new ControlP5(this);
@@ -538,12 +538,21 @@ boolean sketchFullScreen()
 }
 
 
+//////////////////////////////////////////////Possibly changed
 void draw()
 {
+  cursor(CROSS);
+
+  
   switch(currentScreen)
   {
   case 0: setupState(); break;
-  case 1: experimental(); break;
+  case 1:
+  {
+    
+    experimental(); 
+    break;
+  }
   case 2: tlxState(); break;
   case 3: comparisonState(); break;
   case 4: resultsState(); break;

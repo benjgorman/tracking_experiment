@@ -180,12 +180,33 @@ void runTrial()
     
 }
 
+/////////////////////////////////////////////////////////////////////////////////THIS HAS CHANGED
+import java.awt.AWTException;
+import java.awt.Robot;
+Robot robot;
+boolean change = true;
 void mouseMoved() 
 {
-  value = value + 5;
-  if (value > 255) {
-    value = 0;
+   try{
+  robot = new Robot();
   }
+  catch(AWTException e)
+  {
+  }
+  if(change)
+  {
+    robot.mouseMove(displayWidth/2,displayHeight/2);
+    change = false;
+  }
+  int differenceY = pmouseY - mouseY;
+  int differenceX = pmouseX - mouseX;
+  println(differenceX);
+  robot.mouseMove(displayWidth/2 + (differenceX *10),displayHeight/2 + (differenceX * 10));
+//  int differenceY = pmouseY - mouseY;
+//  int differenceX = pmouseX - mouseX;
+//  
+//  mouseY = differenceY * 100;
+//  mouseX = differenceX * 100;
 }
 
 class Square 
